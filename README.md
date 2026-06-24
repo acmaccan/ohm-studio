@@ -153,7 +153,7 @@ Space for observations about differences in agent behavior and output quality.
 - No questions. Act immediately and completely.
 - All content in English.
 - Agent 2 must never modify `agent1/index.html`.
-```
+
 
 ## Agents Used
 |  Agente  | Herramienta | Modelo                             |
