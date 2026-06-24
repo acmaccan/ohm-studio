@@ -163,10 +163,18 @@ Space for observations about differences in agent behavior and output quality.
 
 ## Screenshots
 ### Agente 1 — GitHub Copilot
-![Agente 1](screenshots/agent1.png)
+![Agente 1](screenshots/agent1/01.JPG)
+![Agente 1](screenshots/agent1/02.JPG)
+![Agente 1](screenshots/agent1/03.JPG)
+![Agente 1](screenshots/agent1/04.JPG)
+![Agente 1](screenshots/agent1/05.JPG)
 
 ### Agente 2 — Cursor
-![Agente 2](screenshots/agent2.png)
+![Agente 2](screenshots/agent2/01.JPG)
+![Agente 2](screenshots/agent2/02.JPG)
+![Agente 2](screenshots/agent2/03.JPG)
+![Agente 2](screenshots/agent2/04.JPG)
+![Agente 2](screenshots/agent2/05.JPG)
 
 ## Notes
 Space for observations about differences in agent behavior and output quality.
