@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ohm Studio — Estudio profesional de grabación, mezcla, masterización y producción musical para artistas independientes, bandas y creadores de contenido en Buenos Aires.">
+  <title>Ohm Studio — Estudio de Música Profesional</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:            #0a0a0f;
+      --accent:        #7c3aed;
+      --accent-light:  #9d6bff;
+      --accent-dark:   #5b21b6;
+      --text:          #f8f8f8;
+      --secondary:     #a0a0b0;
+      --surface:       #12121a;
+      --surface-2:     #1a1a2a;
+      --border:        rgba(124, 58, 237, 0.2);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 { font-family: 'Montserrat', sans-serif; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* =============================================
+       UTILITIES
+    ============================================= */
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: var(--accent);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn:hover {
+      background: var(--accent-light);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(124, 58, 237, 0.45);
+    }
+
+    .btn:active { transform: translateY(0); }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(160, 160, 176, 0.35);
+      color: var(--secondary);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--text);
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 0.875rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.14;
+      margin-bottom: 1.25rem;
+    }
+
+    .section-body {
+      color: var(--secondary);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* =============================================
+       FADE-IN ON SCROLL
+    ============================================= */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+
+    .fade-in.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in[data-delay="1"] { transition-delay: 0.10s; }
+    .fade-in[data-delay="2"] { transition-delay: 0.20s; }
+    .fade-in[data-delay="3"] { transition-delay: 0.30s; }
+    .fade-in[data-delay="4"] { transition-delay: 0.40s; }
+
+    /* =============================================
+       HEADER / NAV
+    ============================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: background 0.4s ease, padding 0.4s ease;
+    }
+
+    .site-header.is-scrolled {
+      background: rgba(10, 10, 15, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      padding: 0.875rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--text);
+      letter-spacing: -0.025em;
+      flex-shrink: 0;
+    }
+
+    .nav-logo em {
+      font-style: normal;
+      color: var(--accent-light);
+    }
+
+    .nav-menu {
+      display: none;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-menu a {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--secondary);
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-light);
+      transition: width 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-menu a:hover { color: var(--text); }
+    .nav-menu a:hover::after { width: 100%; }
+
+    .nav-cta { display: none; }
+
+    /* Hamburger button */
+    .nav-hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav-hamburger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.is-open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.97);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.25rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .mobile-nav-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .mobile-nav-overlay a.mobile-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: var(--secondary);
+      transition: color 0.3s ease;
+    }
+
+    .mobile-nav-overlay a.mobile-link:hover { color: var(--text); }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .section-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding: 8rem 1.5rem 6rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 75% 65% at 50% 105%, rgba(124, 58, 237, 0.18) 0%, transparent 65%),
+        radial-gradient(ellipse 45% 55% at 88% 8%,  rgba(124, 58, 237, 0.07) 0%, transparent 60%),
+        linear-gradient(180deg, #0a0a0f 0%, #0e0b1e 55%, #0a0a0f 100%);
+    }
+
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(124, 58, 237, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 0%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 80% at 50% 50%, black 0%, transparent 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      text-align: center;
+      max-width: 840px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent-light);
+      margin-bottom: 2rem;
+      background: rgba(124, 58, 237, 0.07);
+      letter-spacing: 0.05em;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      box-shadow: 0 0 8px var(--accent-light);
+      animation: badge-pulse 2.2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.75rem, 9.5vw, 5.75rem);
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title .text-gradient {
+      background: linear-gradient(130deg, var(--accent-light) 0%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.22rem);
+      color: var(--secondary);
+      max-width: 540px;
+      margin: 0 auto 2.75rem;
+      line-height: 1.75;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Scroll indicator */
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 2.25rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--secondary);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .scroll-track {
+      width: 1px;
+      height: 44px;
+      background: linear-gradient(to bottom, transparent, var(--accent-light));
+      animation: track-drop 1.9s ease-in-out infinite;
+    }
+
+    @keyframes track-drop {
+      0%   { transform: scaleY(0); transform-origin: top; }
+      49%  { transform: scaleY(1); transform-origin: top; }
+      50%  { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+
+    /* =============================================
+       ABOUT US
+    ============================================= */
+    .section-about {
+      padding: 6rem 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-visual-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--surface);
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .about-visual-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 50%, rgba(124, 58, 237, 0.12) 0%, transparent 60%);
+    }
+
+    .about-visual-inner {
+      position: relative;
+      z-index: 1;
+      padding: 2rem;
+      width: 100%;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 1.25rem 0.75rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 2rem;
+      color: var(--accent-light);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--secondary);
+    }
+
+    .about-body .section-body {
+      margin-bottom: 1.25rem;
+    }
+
+    .feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .feature-icon-wrap {
+      flex-shrink: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(124, 58, 237, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-body h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .feature-body p {
+      font-size: 0.875rem;
+      color: var(--secondary);
+    }
+
+    /* =============================================
+       SERVICES
+    ============================================= */
+    .section-services {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(18, 18, 26, 0.9) 50%, var(--bg) 100%);
+    }
+
+    .services-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .services-header .section-body {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(124, 58, 237, 0.5);
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(124, 58, 237, 0.08);
+    }
+
+    .service-card:hover::before { opacity: 1; }
+
+    .service-icon-wrap {
+      width: 58px;
+      height: 58px;
+      background: rgba(124, 58, 237, 0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      transition: background 0.3s ease;
+    }
+
+    .service-card:hover .service-icon-wrap {
+      background: rgba(124, 58, 237, 0.22);
+    }
+
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.75;
+    }
+
+    /* =============================================
+       TESTIMONIALS
+    ============================================= */
+    .section-testimonials {
+      padding: 6rem 0;
+    }
+
+    .testimonials-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .testimonials-header .section-body {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .testimonial-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '\201C';
+      position: absolute;
+      top: 0.75rem;
+      right: 1.5rem;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 5.5rem;
+      color: var(--accent);
+      opacity: 0.13;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .t-stars {
+      color: #fbbf24;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+
+    .t-quote {
+      font-size: 0.9rem;
+      color: var(--secondary);
+      line-height: 1.8;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .t-author-row {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+
+    .t-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .t-author-info strong {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .t-author-info span {
+      font-size: 0.79rem;
+      color: var(--secondary);
+    }
+
+    /* =============================================
+       CONTACT FORM
+    ============================================= */
+    .section-contact {
+      padding: 6rem 0;
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(18, 18, 26, 0.9) 50%, var(--bg) 100%);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info-col h2 {
+      font-size: clamp(1.85rem, 4vw, 2.5rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info-col .section-body {
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+    }
+
+    .contact-icon-wrap {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: rgba(124, 58, 237, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .contact-detail-item span {
+      font-size: 0.9rem;
+      color: var(--secondary);
+    }
+
+    /* Form card */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .form-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1.75rem;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-group:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .optional-tag {
+      font-size: 0.78rem;
+      opacity: 0.6;
+      font-weight: 400;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: var(--bg);
+      border: 1px solid rgba(160, 160, 176, 0.22);
+      border-radius: 7px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control::placeholder { color: rgba(160, 160, 176, 0.45); }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.16);
+    }
+
+    select.form-control {
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a0a0b0' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+    }
+
+    select.form-control option { background: var(--surface-2); }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 135px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      padding: 1.05rem;
+      font-size: 1rem;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3.5rem 0 1.75rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-logo-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-logo-name em {
+      font-style: normal;
+      color: var(--accent-light);
+    }
+
+    .footer-tagline {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      line-height: 1.65;
+      max-width: 280px;
+    }
+
+    .footer-col-heading {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text);
+      margin-bottom: 1rem;
+    }
+
+    .footer-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .footer-nav-links a {
+      font-size: 0.875rem;
+      color: var(--secondary);
+      transition: color 0.3s ease;
+    }
+
+    .footer-nav-links a:hover { color: var(--text); }
+
+    .social-row {
+      display: flex;
+      gap: 0.875rem;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: rgba(124, 58, 237, 0.08);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .social-btn:hover {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: rgba(124, 58, 237, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+      color: var(--secondary);
+    }
+
+    /* =============================================
+       RESPONSIVE — 768px
+    ============================================= */
+    @media (min-width: 768px) {
+      /* Nav */
+      .nav-menu     { display: flex; }
+      .nav-cta      { display: inline-flex; }
+      .nav-hamburger { display: none; }
+
+      /* Hero */
+      .hero-cta-group {
+        flex-direction: row;
+        justify-content: center;
+      }
+
+      /* About */
+      .about-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+
+      /* Services */
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Testimonials */
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+
+      /* Contact form row */
+      .form-row-2 { grid-template-columns: 1fr 1fr; }
+
+      /* Footer */
+      .footer-grid { grid-template-columns: 2fr 1fr 1fr; }
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* =============================================
+       RESPONSIVE — 1024px
+    ============================================= */
+    @media (min-width: 1024px) {
+      .services-grid      { grid-template-columns: repeat(4, 1fr); }
+      .testimonials-grid  { grid-template-columns: repeat(3, 1fr); }
+      .contact-grid       { grid-template-columns: 1fr 1.5fr; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===================================================
+       HEADER
+  ==================================================== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="nav-inner" aria-label="Navegación principal">
+
+        <a href="#hero" class="nav-logo" aria-label="Ohm Studio — Inicio">Ohm <em>Studio</em></a>
+
+        <ul class="nav-menu" role="list">
+          <li><a href="#services">Servicios</a></li>
+          <li><a href="#about">Acerca de</a></li>
+          <li><a href="#testimonials">Testimonios</a></li>
+          <li><a href="#contact">Contacto</a></li>
+        </ul>
+
+        <a href="#contact" class="btn nav-cta" aria-label="Reservar una sesión en Ohm Studio">
+          Reservar una sesión
+        </a>
+
+        <button
+          class="nav-hamburger"
+          id="nav-hamburger"
+          aria-label="Abrir menú de navegación"
+          aria-expanded="false"
+          aria-controls="mobile-nav-overlay"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile navigation overlay -->
+  <nav
+    class="mobile-nav-overlay"
+    id="mobile-nav-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Menú de navegación móvil"
+  >
+    <a href="#services"     class="mobile-link">Servicios</a>
+    <a href="#about"        class="mobile-link">Acerca de</a>
+    <a href="#testimonials" class="mobile-link">Testimonios</a>
+    <a href="#contact"      class="mobile-link">Contacto</a>
+    <a href="#contact"      class="btn" aria-label="Reservar una sesión">Reservar una sesión</a>
+  </nav>
+
+
+  <main>
+
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
+    <section class="section-hero" id="hero" aria-labelledby="hero-heading">
+
+      <div class="hero-bg"           aria-hidden="true"></div>
+      <div class="hero-grid-overlay" aria-hidden="true"></div>
+
+      <div class="hero-content">
+
+        <div class="hero-badge fade-in">
+          <span class="badge-dot" aria-hidden="true"></span>
+          Estudio Profesional &middot; Buenos Aires
+        </div>
+
+        <h1 class="hero-title fade-in" id="hero-heading" data-delay="1">
+          Donde el sonido<br>
+          se convierte en <span class="text-gradient">arte</span>
+        </h1>
+
+        <p class="hero-subtitle fade-in" data-delay="2">
+          Grabación, mezcla, masterización y producción musical de clase mundial
+          para artistas independientes, bandas y creadores de contenido.
+        </p>
+
+        <div class="hero-cta-group fade-in" data-delay="3">
+          <a href="#contact" class="btn" aria-label="Reservar una sesión en Ohm Studio">
+            Reservar una sesión
+          </a>
+          <a href="#services" class="btn btn-ghost" aria-label="Explorar los servicios de Ohm Studio">
+            Explorar servicios
+          </a>
+        </div>
+
+      </div>
+
+      <div class="hero-scroll-indicator" aria-hidden="true">
+        <span>Scroll</span>
+        <span class="scroll-track"></span>
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         ABOUT US
+    ==================================================== -->
+    <section class="section-about" id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-grid">
+
+          <!-- Visual / SVG Waveform Card -->
+          <div class="about-visual-card fade-in" aria-hidden="true">
+            <div class="about-visual-inner">
+              <!-- Studio waveform + playhead SVG -->
+              <svg
+                viewBox="0 0 420 240"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+                role="img"
+                style="width:100%; max-width:420px; margin:0 auto; display:block;"
+              >
+                <!-- Panel background -->
+                <rect width="420" height="240" rx="10" fill="#1a1a2a" fill-opacity="0.55"/>
+
+                <!-- Waveform bars — channel A -->
+                <g opacity="0.65">
+                  <rect x="18"  y="80"  width="5" height="80"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="28"  y="60"  width="5" height="120" rx="2.5" fill="#9d6bff"/>
+                  <rect x="38"  y="90"  width="5" height="60"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="48"  y="50"  width="5" height="140" rx="2.5" fill="#c084fc"/>
+                  <rect x="58"  y="72"  width="5" height="96"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="68"  y="100" width="5" height="40"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="78"  y="42"  width="5" height="156" rx="2.5" fill="#c084fc"/>
+                  <rect x="88"  y="74"  width="5" height="92"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="98"  y="56"  width="5" height="128" rx="2.5" fill="#7c3aed"/>
+                  <rect x="108" y="94"  width="5" height="52"  rx="2.5" fill="#c084fc"/>
+                  <rect x="118" y="66"  width="5" height="108" rx="2.5" fill="#9d6bff"/>
+                  <rect x="128" y="84"  width="5" height="72"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="138" y="46"  width="5" height="148" rx="2.5" fill="#c084fc"/>
+                  <rect x="148" y="70"  width="5" height="100" rx="2.5" fill="#9d6bff"/>
+                  <rect x="158" y="88"  width="5" height="64"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="168" y="54"  width="5" height="132" rx="2.5" fill="#c084fc"/>
+                  <rect x="178" y="76"  width="5" height="88"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="188" y="38"  width="5" height="164" rx="2.5" fill="#7c3aed"/>
+                  <rect x="198" y="62"  width="5" height="116" rx="2.5" fill="#c084fc"/>
+                  <rect x="208" y="82"  width="5" height="76"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="218" y="52"  width="5" height="136" rx="2.5" fill="#7c3aed"/>
+                  <rect x="228" y="72"  width="5" height="96"  rx="2.5" fill="#c084fc"/>
+                  <rect x="238" y="96"  width="5" height="48"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="248" y="62"  width="5" height="116" rx="2.5" fill="#7c3aed"/>
+                  <rect x="258" y="80"  width="5" height="80"  rx="2.5" fill="#c084fc"/>
+                  <rect x="268" y="48"  width="5" height="144" rx="2.5" fill="#9d6bff"/>
+                  <rect x="278" y="74"  width="5" height="92"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="288" y="66"  width="5" height="108" rx="2.5" fill="#c084fc"/>
+                  <rect x="298" y="84"  width="5" height="72"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="308" y="70"  width="5" height="100" rx="2.5" fill="#7c3aed"/>
+                  <rect x="318" y="46"  width="5" height="148" rx="2.5" fill="#c084fc"/>
+                  <rect x="328" y="78"  width="5" height="84"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="338" y="58"  width="5" height="124" rx="2.5" fill="#7c3aed"/>
+                  <rect x="348" y="90"  width="5" height="60"  rx="2.5" fill="#c084fc"/>
+                  <rect x="358" y="72"  width="5" height="96"  rx="2.5" fill="#9d6bff"/>
+                  <rect x="368" y="88"  width="5" height="64"  rx="2.5" fill="#7c3aed"/>
+                  <rect x="378" y="60"  width="5" height="120" rx="2.5" fill="#c084fc"/>
+                  <rect x="388" y="80"  width="5" height="80"  rx="2.5" fill="#9d6bff"/>
+                </g>
+
+                <!-- Center baseline -->
+                <line x1="18" y1="120" x2="400" y2="120"
+                  stroke="#7c3aed" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="4 4"/>
+
+                <!-- Playhead -->
+                <line x1="200" y1="28" x2="200" y2="212"
+                  stroke="#c084fc" stroke-width="2" stroke-opacity="0.85"/>
+                <polygon points="200,24 206,35 194,35" fill="#c084fc" opacity="0.85"/>
+
+                <!-- Transport bar -->
+                <rect x="18"  y="218" width="384" height="18" rx="5" fill="#12121a"/>
+                <rect x="18"  y="218" width="190" height="18" rx="5" fill="rgba(124,58,237,0.5)"/>
+                <circle cx="208" cy="227" r="6" fill="#9d6bff"/>
+
+                <!-- Channel labels -->
+                <text x="18" y="22" font-size="9" fill="#9d6bff" font-family="monospace" opacity="0.7">CH 01 — LEAD VOX</text>
+                <text x="18" y="34" font-size="9" fill="#a0a0b0" font-family="monospace" opacity="0.5">OHM STUDIO — SESSION</text>
+              </svg>
+
+              <!-- Stats row -->
+              <div class="stats-row">
+                <div class="stat-card">
+                  <div class="stat-num">500+</div>
+                  <div class="stat-label">Proyectos</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-num">12</div>
+                  <div class="stat-label">Años</div>
+                </div>
+                <div class="stat-card">
+                  <div class="stat-num">98%</div>
+                  <div class="stat-label">Satisfacción</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text content -->
+          <div class="about-body fade-in" data-delay="2">
+            <span class="eyebrow">Nuestra historia</span>
+            <h2 class="section-title" id="about-heading">
+              Más de una década creando sonido de clase mundial
+            </h2>
+            <p class="section-body">
+              Ohm Studio nació de la pasión por el sonido perfecto. Con más de 12 años de experiencia
+              en la industria musical, hemos trabajado junto a artistas independientes, bandas
+              emergentes y creadores de contenido para dar vida a sus visiones sonoras más ambiciosas.
+            </p>
+            <p class="section-body">
+              Nuestro equipo de ingenieros certificados y productores con créditos internacionales
+              combina tecnología de punta con un enfoque artístico único, entregando resultados que
+              compiten a nivel global.
+            </p>
+
+            <div class="feature-list">
+              <div class="feature-row">
+                <div class="feature-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="feature-body">
+                  <h3>Equipamiento de nivel profesional</h3>
+                  <p>Consolas Neve y API, micrófonos Neumann y preamplificadores vintage.</p>
+                </div>
+              </div>
+
+              <div class="feature-row">
+                <div class="feature-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="feature-body">
+                  <h3>Sala de grabación acústicamente tratada</h3>
+                  <p>Diseñada por expertos en acústica para capturar el sonido más puro.</p>
+                </div>
+              </div>
+
+              <div class="feature-row">
+                <div class="feature-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </div>
+                <div class="feature-body">
+                  <h3>Entrega rápida y revisiones ilimitadas</h3>
+                  <p>Tu proyecto listo en tiempo récord, sin compromisos en la calidad final.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         SERVICES
+    ==================================================== -->
+    <section class="section-services" id="services" aria-labelledby="services-heading">
+      <div class="container">
+
+        <div class="services-header">
+          <span class="eyebrow fade-in">Lo que hacemos</span>
+          <h2 class="section-title fade-in" id="services-heading" data-delay="1">
+            Servicios diseñados para tu música
+          </h2>
+          <p class="section-body fade-in" data-delay="2">
+            Desde la primera nota hasta el producto final, ofrecemos todo lo que necesitás
+            para que tu música suene exactamente como la imaginaste.
+          </p>
+        </div>
+
+        <div class="services-grid">
+
+          <!-- Recording -->
+          <article class="service-card fade-in" data-delay="1">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <!-- Microphone icon -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="9" y="2" width="6" height="11" rx="3"
+                  stroke="#9d6bff" stroke-width="1.75"/>
+                <path d="M5 10a7 7 0 0 0 14 0"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+                <line x1="12" y1="17" x2="12" y2="21"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+                <line x1="8" y1="21" x2="16" y2="21"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3>Grabación</h3>
+            <p>
+              Capturamos cada matiz de tu interpretación con equipamiento de estudio de primer nivel.
+              Voces, instrumentos acústicos, ensambles completos — con la calidez y el detalle que merecen.
+            </p>
+          </article>
+
+          <!-- Mixing -->
+          <article class="service-card fade-in" data-delay="2">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <!-- Mixer faders icon -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <line x1="4" y1="6"  x2="20" y2="6"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+                <line x1="4" y1="12" x2="20" y2="12"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+                <line x1="4" y1="18" x2="20" y2="18"
+                  stroke="#9d6bff" stroke-width="1.75" stroke-linecap="round"/>
+                <circle cx="8"  cy="6"  r="2.5"
+                  fill="#12121a" stroke="#9d6bff" stroke-width="1.75"/>
+                <circle cx="16" cy="12" r="2.5"
+                  fill="#12121a" stroke="#9d6bff" stroke-width="1.75"/>
+                <circle cx="10" cy="18" r="2.5"
+                  fill="#12121a" stroke="#9d6bff" stroke-width="1.75"/>
+              </svg>
+            </div>
+            <h3>Mezcla</h3>
+            <p>
+              Damos forma al espacio sonoro de tu canción, balanceando cada elemento para crear
+              una mezcla tridimensional, cohesiva y emocionalmente poderosa que destaca en cualquier
+              plataforma de streaming.
+            </p>
+          </article>
+
+          <!-- Mastering -->
+          <article class="service-card fade-in" data-delay="3">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <!-- Waveform / spectrum icon -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <polyline
+                  points="2 12 5 7 8 14 11 4 14 16 17 9 20 12 22 12"
+                  stroke="#9d6bff" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3>Masterización</h3>
+            <p>
+              El toque final que hace que tu música compita a nivel profesional. Ajustamos volumen,
+              dinámica, campo estéreo y tono para que tu canción suene impecable en streaming,
+              vinilo y radio.
+            </p>
+          </article>
+
+          <!-- Music Production -->
+          <article class="service-card fade-in" data-delay="4">
+            <div class="service-icon-wrap" aria-hidden="true">
+              <!-- Musical notes icon -->
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M9 18V5l12-2v13"
+                  stroke="#9d6bff" stroke-width="1.75"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="6"  cy="18" r="3" stroke="#9d6bff" stroke-width="1.75"/>
+                <circle cx="18" cy="16" r="3" stroke="#9d6bff" stroke-width="1.75"/>
+              </svg>
+            </div>
+            <h3>Producción Musical</h3>
+            <p>
+              Desde cero hasta el producto terminado. Nuestros productores colaboran con vos
+              para construir arreglos, beats, instrumentación y el concepto sonoro completo
+              de tu proyecto artístico.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         TESTIMONIALS
+    ==================================================== -->
+    <section class="section-testimonials" id="testimonials" aria-labelledby="testimonials-heading">
+      <div class="container">
+
+        <div class="testimonials-header">
+          <span class="eyebrow fade-in">Lo que dicen</span>
+          <h2 class="section-title fade-in" id="testimonials-heading" data-delay="1">
+            Artistas que confían en nosotros
+          </h2>
+          <p class="section-body fade-in" data-delay="2">
+            La mejor carta de presentación es la satisfacción de quienes ya vivieron
+            la experiencia Ohm Studio.
+          </p>
+        </div>
+
+        <div class="testimonials-grid">
+
+          <article class="testimonial-card fade-in" data-delay="1">
+            <div class="t-stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="t-quote">
+              "Ohm Studio transformó por completo mi sonido. El nivel de detalle en la mezcla fue
+              impresionante: podía escuchar elementos en mi música que nunca había notado antes.
+              Mi álbum debut sonó como si hubiera costado diez veces más."
+            </p>
+            <div class="t-author-row">
+              <div class="t-avatar" aria-hidden="true">LR</div>
+              <div class="t-author-info">
+                <strong>Laura Rodríguez</strong>
+                <span>Cantautora Indie Pop</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card fade-in" data-delay="2">
+            <div class="t-stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="t-quote">
+              "Llevamos tres EPs grabados en Ohm y cada vez el resultado supera el anterior.
+              El equipo entiende perfectamente el sonido que buscamos como banda.
+              El tratamiento acústico de las salas es simplemente excepcional."
+            </p>
+            <div class="t-author-row">
+              <div class="t-avatar" aria-hidden="true">MV</div>
+              <div class="t-author-info">
+                <strong>Martín Velázquez</strong>
+                <span>Guitarrista · Banda de Rock Alternativo</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card fade-in" data-delay="3">
+            <div class="t-stars" aria-label="5 de 5 estrellas">★★★★★</div>
+            <p class="t-quote">
+              "Como creadora de contenido, necesito música que suene profesional para mis videos.
+              Ohm Studio produjo cuatro tracks personalizados que le dieron una identidad completamente
+              nueva a mi canal. ¡El proceso fue rápido y súper profesional!"
+            </p>
+            <div class="t-author-row">
+              <div class="t-avatar" aria-hidden="true">SC</div>
+              <div class="t-author-info">
+                <strong>Sofía Castillo</strong>
+                <span>Creadora de Contenido Digital</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ===================================================
+         CONTACT FORM
+    ==================================================== -->
+    <section class="section-contact" id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="contact-grid">
+
+          <!-- Info column -->
+          <div class="contact-info-col fade-in">
+            <span class="eyebrow">Hablemos</span>
+            <h2 id="contact-heading">
+              ¿Listo para grabar<br>tu próximo proyecto?
+            </h2>
+            <p class="section-body">
+              Completá el formulario y uno de nuestros ingenieros te contactará dentro de las
+              24 horas para coordinar tu primera sesión.
+            </p>
+
+            <div class="contact-detail-list">
+
+              <div class="contact-detail-item">
+                <div class="contact-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <span>Palermo, Buenos Aires, Argentina</span>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                      19.79 19.79 0 0 1-8.63-3.07
+                      A19.5 19.5 0 0 1 4.69 12
+                      a19.79 19.79 0 0 1-3.07-8.67
+                      A2 2 0 0 1 3.6 1.28h3a2 2 0 0 1 2 1.72
+                      12.84 12.84 0 0 0 .7 2.81
+                      a2 2 0 0 1-.45 2.11L7.91 9
+                      a16 16 0 0 0 6 6l.93-.93
+                      a2 2 0 0 1 2.11-.45
+                      12.84 12.84 0 0 0 2.81.7
+                      A2 2 0 0 1 21.72 16z"/>
+                  </svg>
+                </div>
+                <span>+54 11 4567-8900</span>
+              </div>
+
+              <div class="contact-detail-item">
+                <div class="contact-icon-wrap" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="#9d6bff" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4
+                      c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <span>hola@ohmstudio.com</span>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Form card -->
+          <div class="form-card fade-in" data-delay="2">
+            <h3>Reservá tu sesión</h3>
+
+            <form action="#" method="post" novalidate aria-label="Formulario de contacto Ohm Studio">
+
+              <div class="form-row-2">
+                <div>
+                  <label class="form-label" for="name">
+                    Nombre completo <span aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Tu nombre completo"
+                    required
+                    aria-required="true"
+                    autocomplete="name"
+                  >
+                </div>
+                <div>
+                  <label class="form-label" for="email">
+                    Correo electrónico <span aria-hidden="true">*</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="tu@email.com"
+                    required
+                    aria-required="true"
+                    autocomplete="email"
+                  >
+                </div>
+              </div>
+
+              <div class="form-row-2">
+                <div>
+                  <label class="form-label" for="phone">
+                    Teléfono <span class="optional-tag">(opcional)</span>
+                  </label>
+                  <input
+                    class="form-control"
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="+54 11 1234-5678"
+                    autocomplete="tel"
+                  >
+                </div>
+                <div>
+                  <label class="form-label" for="service">
+                    Servicio de interés <span aria-hidden="true">*</span>
+                  </label>
+                  <select
+                    class="form-control"
+                    id="service"
+                    name="service"
+                    required
+                    aria-required="true"
+                  >
+                    <option value="" disabled selected>Seleccioná un servicio</option>
+                    <option value="grabacion">Grabación</option>
+                    <option value="mezcla">Mezcla</option>
+                    <option value="masterizacion">Masterización</option>
+                    <option value="produccion">Producción Musical</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">
+                  Mensaje <span aria-hidden="true">*</span>
+                </label>
+                <textarea
+                  class="form-control"
+                  id="message"
+                  name="message"
+                  placeholder="Contanos sobre tu proyecto, estilo musical y lo que necesitás…"
+                  required
+                  aria-required="true"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn form-submit-btn" aria-label="Enviar consulta de reserva">
+                Enviar consulta
+              </button>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ===================================================
+       FOOTER
+  ==================================================== -->
+  <footer class="site-footer" id="footer">
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <!-- Brand -->
+        <div>
+          <h2 class="footer-logo-name">Ohm <em>Studio</em></h2>
+          <p class="footer-tagline">
+            Estudio profesional de producción musical en Buenos Aires.
+            Transformando ideas en sonido desde 2012.
+          </p>
+        </div>
+
+        <!-- Navigation -->
+        <nav aria-label="Navegación del pie de página">
+          <h3 class="footer-col-heading">Navegación</h3>
+          <ul class="footer-nav-links">
+            <li><a href="#services">Servicios</a></li>
+            <li><a href="#about">Acerca de</a></li>
+            <li><a href="#testimonials">Testimonios</a></li>
+            <li><a href="#contact">Contacto</a></li>
+          </ul>
+        </nav>
+
+        <!-- Social -->
+        <div>
+          <h3 class="footer-col-heading">Redes Sociales</h3>
+          <div class="social-row">
+
+            <!-- Instagram -->
+            <a
+              href="#"
+              class="social-btn"
+              aria-label="Ohm Studio en Instagram"
+              rel="noopener noreferrer"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2" y="2" width="20" height="20" rx="5"
+                  stroke="#a0a0b0" stroke-width="1.75"/>
+                <circle cx="12" cy="12" r="5" stroke="#a0a0b0" stroke-width="1.75"/>
+                <circle cx="17.5" cy="6.5" r="1" fill="#a0a0b0"/>
+              </svg>
+            </a>
+
+            <!-- YouTube -->
+            <a
+              href="#"
+              class="social-btn"
+              aria-label="Ohm Studio en YouTube"
+              rel="noopener noreferrer"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4
+                  s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12
+                  a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96
+                  C5.12 20 12 20 12 20s6.88 0 8.59-.46
+                  a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12
+                  a29 29 0 0 0-.46-5.58z"
+                  stroke="#a0a0b0" stroke-width="1.75" fill="none"/>
+                <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                  stroke="#a0a0b0" stroke-width="1.5" fill="#a0a0b0" fill-opacity="0.6"/>
+              </svg>
+            </a>
+
+            <!-- Spotify -->
+            <a
+              href="#"
+              class="social-btn"
+              aria-label="Ohm Studio en Spotify"
+              rel="noopener noreferrer"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" stroke="#a0a0b0" stroke-width="1.75"/>
+                <path d="M7.5 15.5c2.8-1.1 5.6-1.1 8.5 0"
+                  stroke="#a0a0b0" stroke-width="1.75" stroke-linecap="round"/>
+                <path d="M6.5 12c3.5-1.4 7-1.4 10.5 0"
+                  stroke="#a0a0b0" stroke-width="1.75" stroke-linecap="round"/>
+                <path d="M6 8.5c4-1.67 8-1.67 12 0"
+                  stroke="#a0a0b0" stroke-width="1.75" stroke-linecap="round"/>
+              </svg>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 Ohm Studio. Todos los derechos reservados.</p>
+        <p>Hecho con ♥ en Buenos Aires, Argentina</p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <script>
+    /* =============================================
+       HAMBURGER MENU
+    ============================================= */
+    const hamburger   = document.getElementById('nav-hamburger');
+    const mobileNav   = document.getElementById('mobile-nav-overlay');
+    const mobileLinks = mobileNav.querySelectorAll('a');
+
+    function openMenu() {
+      hamburger.classList.add('is-open');
+      mobileNav.classList.add('is-open');
+      hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMenu() {
+      hamburger.classList.remove('is-open');
+      mobileNav.classList.remove('is-open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', () => {
+      mobileNav.classList.contains('is-open') ? closeMenu() : openMenu();
+    });
+
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+    /* =============================================
+       HEADER SCROLL EFFECT
+    ============================================= */
+    const siteHeader = document.getElementById('site-header');
+
+    window.addEventListener('scroll', () => {
+      siteHeader.classList.toggle('is-scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* =============================================
+       INTERSECTION OBSERVER — FADE IN
+    ============================================= */
+    const fadeItems = document.querySelectorAll('.fade-in');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold:  0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeItems.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
