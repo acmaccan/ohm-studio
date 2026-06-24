@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ohm Studio — Prompt Engineering Showcase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0a0a0f;
+      --accent:  #7c3aed;
+      --text:    #f8f8f8;
+      --muted:   #a0a0b0;
+      --surface: #12121a;
+      --border:  rgba(124, 58, 237, 0.22);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    .portal {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+    }
+
+    .portal-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      max-width: 560px;
+    }
+
+    .portal-header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .portal-header h1 span { color: var(--accent); }
+
+    .portal-header p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .card-link {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      transition: border-color 0.3s ease, transform 0.25s ease, box-shadow 0.3s ease;
+    }
+
+    .card-link:hover {
+      border-color: rgba(124, 58, 237, 0.55);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .card-link:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .card-link--prompt .card-title { color: var(--accent); }
+
+    .portal-footer {
+      text-align: center;
+      padding: 1.75rem 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .portal-footer p {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 768px) {
+      .portal { padding: 4rem 2rem; }
+      .cards { gap: 1.5rem; }
+      .card-link { padding: 1.75rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="portal">
+    <header class="portal-header">
+      <h1>Ohm Studio — <span>Prompt Engineering Showcase</span></h1>
+      <p>Comparación de landing pages generadas autónomamente por dos agentes de IA con el mismo prompt.</p>
+    </header>
+
+    <nav class="cards" aria-label="Enlaces del proyecto">
+      <a href="./prompt.txt" class="card-link card-link--prompt" target="_blank" rel="noopener noreferrer">
+        <div class="card-title">View Prompt</div>
+        <div class="card-subtitle">The exact prompt used with both agents.</div>
+      </a>
+
+      <a href="./agent1/index.html" class="card-link" target="_blank" rel="noopener noreferrer">
+        <div class="card-title">Agent 1 — GitHub Copilot · Claude Sonnet 4.6</div>
+        <div class="card-subtitle">Landing page generated autonomously by Copilot in VS Code.</div>
+      </a>
+
+      <a href="./agent2/index.html" class="card-link" target="_blank" rel="noopener noreferrer">
+        <div class="card-title">Agent 2 — Cursor · Composer 2.5 Fast</div>
+        <div class="card-subtitle">Landing page generated autonomously by Cursor.</div>
+      </a>
+    </nav>
+  </main>
+
+  <footer class="portal-footer">
+    <p>Andrea Maccan — Desarrollo de Sistemas Web (Front End) - 2° E · 2026</p>
+  </footer>
+
+</body>
+</html>
